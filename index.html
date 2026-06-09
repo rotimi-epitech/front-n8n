@@ -421,15 +421,41 @@
                     });
 
                     if (!res.ok) throw new Error('Network response was not ok');
-                    const data = await res.json();
 
                     typingEl.remove();
 
-                    const reply = data.output || (data.data && data.data.output) || 'Réponse reçue.';
-                    addMessage(reply, 'agent');
+                    // 1. On récupère tout le texte brut de la réponse
+                    const responseText = await res.text();
+                    
+                    // 2. On sépare les lignes (le format est du NDJSON)
+                    const lines = responseText.trim().split('\n');
+                    
+                    let fullReply = "";
+                    const agentDiv = document.createElement('div');
+                    agentDiv.className = 'msg agent';
+                    chat.appendChild(agentDiv);
+
+                    // 3. On boucle sur chaque ligne
+                    lines.forEach(line => {
+                        if (!line.trim()) return;
+                        try {
+                            const chunk = JSON.parse(line);
+                            // On extrait le contenu uniquement si c'est un 'item'
+                            if (chunk.type === 'item' && chunk.content) {
+                                fullReply += chunk.content;
+                            }
+                        } catch (e) {
+                            console.error("Erreur parsing JSON:", e);
+                        }
+                    });
+
+                    // 4. On affiche le résultat final
+                    agentDiv.textContent = fullReply || "Aucun contenu reçu.";
+                    scrollToBottom();
+
                 } catch (err) {
-                    typingEl.remove();
-                    addMessage('Une erreur est survenue. Vérifiez que N8N est bien lancé.', 'agent');
+                    if(typingEl) typingEl.remove();
+                    addMessage('Une erreur est survenue lors de la connexion avec le serveur.', 'agent');
                 } finally {
                     setLoading(false);
                     input.focus();
