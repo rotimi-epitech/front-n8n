@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Persona — Politique de confidentialité & RGPD</title>
+    <meta name="description" content="Politique de confidentialité et conformité RGPD de Persona, l'agrégateur de newsletters personnalisé." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0f0f0f;
+            --surface: #1a1a2e;
+            --surface-2: #1e1e2e;
+            --border: rgba(255, 255, 255, 0.06);
+            --muted: #888;
+            --accent: #6c63ff;
+            --accent-hover: #7c73ff;
+            --accent-dim: rgba(108, 99, 255, 0.12);
+            --accent-glow: rgba(108, 99, 255, 0.25);
+            --text: #e0e0e8;
+            --text-soft: #b0b0c0;
+            --green: #22c55e;
+            --green-dim: rgba(34, 197, 94, 0.1);
+            --amber: #f59e0b;
+            --amber-dim: rgba(245, 158, 11, 0.1);
+            --red: #ef4444;
+            --red-dim: rgba(239, 68, 68, 0.1);
+            --radius: 16px;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        html, body {
+            min-height: 100%;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Back nav ────────────────────────────────────── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(15, 15, 15, 0.88);
+            backdrop-filter: blur(14px);
+        }
+
+        nav a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 13.5px;
+            font-weight: 500;
+            transition: color .2s;
+        }
+
+        nav a:hover { color: var(--accent); }
+
+        nav a svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .nav-brand {
+            font-size: 15px;
+            font-weight: 700;
+            background: var(--accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ── Layout ──────────────────────────────────────── */
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+        }
+
+        /* ── Hero ────────────────────────────────────────── */
+        .hero {
+            margin-bottom: 48px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            background: var(--accent-dim);
+            border: 1px solid rgba(108, 99, 255, 0.25);
+            border-radius: 100px;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .hero h1 {
+            font-size: clamp(26px, 5vw, 36px);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -.5px;
+            margin-bottom: 14px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            color: var(--text-soft);
+            line-height: 1.7;
+            max-width: 600px;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hero-meta span {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .hero-meta span strong {
+            color: var(--text-soft);
+            font-weight: 500;
+        }
+
+        /* ── RGPD Compliance summary ─────────────────────── */
+        .compliance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        .compliance-item {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .compliance-item.ok { border-left: 3px solid var(--green); }
+        .compliance-item.warn { border-left: 3px solid var(--amber); }
+        .compliance-item.info { border-left: 3px solid var(--accent); }
+
+        .compliance-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .compliance-item.ok .compliance-dot { background: var(--green); }
+        .compliance-item.warn .compliance-dot { background: var(--amber); }
+        .compliance-item.info .compliance-dot { background: var(--accent); }
+
+        .compliance-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        /* ── Sections ────────────────────────────────────── */
+        .section {
+            margin-bottom: 36px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--accent-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .section-icon svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--accent);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .section h2 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .section p, .section li {
+            font-size: 14px;
+            color: var(--text-soft);
+            line-height: 1.75;
+        }
+
+        .section p + p { margin-top: 10px; }
+
+        .section ul {
+            list-style: none;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .section ul li {
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .section ul li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* ── Data table ──────────────────────────────────── */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 14px;
+            font-size: 13.5px;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 10px 14px;
+            font-weight: 600;
+            font-size: 11px;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table th:first-child { border-radius: 8px 0 0 0; }
+        .data-table th:last-child { border-radius: 0 8px 0 0; }
+
+        .data-table td {
+            padding: 12px 14px;
+            color: var(--text-soft);
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .data-table tr:last-child td { border-bottom: none; }
+
+        .data-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .tag-green { background: var(--green-dim); color: var(--green); }
+        .tag-amber { background: var(--amber-dim); color: var(--amber); }
+        .tag-accent { background: var(--accent-dim); color: var(--accent); }
+        .tag-red { background: var(--red-dim); color: var(--red); }
+
+        /* ── Rights box ──────────────────────────────────── */
+        .rights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .right-card {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+        }
+
+        .right-card strong {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .right-card p {
+            font-size: 12.5px !important;
+            color: var(--muted) !important;
+            line-height: 1.5 !important;
+        }
+
+        /* ── Callout ─────────────────────────────────────── */
+        .callout {
+            display: flex;
+            gap: 14px;
+            padding: 16px 18px;
+            border-radius: 12px;
+            margin-top: 14px;
+        }
+
+        .callout.warn {
+            background: var(--amber-dim);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .callout.info {
+            background: var(--accent-dim);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+        }
+
+        .callout.ok {
+            background: var(--green-dim);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .callout-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .callout p {
+            font-size: 13.5px !important;
+            color: var(--text-soft) !important;
+            line-height: 1.65 !important;
+        }
+
+        .callout p strong {
+            color: var(--text);
+        }
+
+        /* ── Contact block ───────────────────────────────── */
+        .contact-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        .contact-block p {
+            font-size: 14px !important;
+            color: var(--text-soft) !important;
+        }
+
+        .contact-block p strong {
+            display: block;
+            font-size: 15px;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 20px;
+            font-family: inherit;
+            font-size: 13.5px;
+            font-weight: 600;
+            border-radius: 100px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all .2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6c63ff, #a855f7);
+            color: #fff;
+            box-shadow: 0 2px 12px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-soft);
+            border: 1.5px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            border-color: rgba(108, 99, 255, .4);
+            color: var(--accent);
+        }
+
+        /* ── Footer ──────────────────────────────────────── */
+        footer {
+            text-align: center;
+            padding: 32px 24px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover { text-decoration: underline; }
+
+        /* ── Responsive ──────────────────────────────────── */
+        @media (max-width: 540px) {
+            .container { padding: 32px 16px 60px; }
+            .compliance-grid { grid-template-columns: 1fr 1fr; }
+            .rights-grid { grid-template-columns: 1fr; }
+            .data-table { font-size: 12.5px; }
+            .data-table th, .data-table td { padding: 9px 10px; }
+            .contact-block { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html">
+            <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Retour au chat
+        </a>
+        <span class="nav-brand">Persona</span>
+    </nav>
+
+    <div class="container">
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-badge">RGPD & Confidentialité</div>
+            <h1>Vos données, vos droits.</h1>
+            <p>Persona collecte uniquement ce qui est nécessaire pour vous envoyer des newsletters pertinentes. Cette page explique quelles données sont traitées, pourquoi, et comment exercer vos droits.</p>
+            <div class="hero-meta">
+                <span>Dernière mise à jour : <strong>Juin 2025</strong></span>
+                <span>Version : <strong>0.1</strong></span>
+                <span>Applicable dès : <strong>l'inscription</strong></span>
+            </div>
+        </div>
+
+        <!-- Compliance summary -->
+        <div class="compliance-grid">
+            <div class="compliance-item ok">
+                <div class="compliance-dot"></div>
+                <span class="compliance-label">Consentement explicite</span>
+            </div>
+            <div class="compliance-item ok">
+                <div class="compliance-dot"></div>
+                <span class="compliance-label">Droit de suppression</span>
+            </div>
+            <div class="compliance-item ok">
+                <div class="compliance-dot"></div>
+                <span class="compliance-label">Désabonnement facile</span>
+            </div>
+            <div class="compliance-item ok">
+                <div class="compliance-dot"></div>
+                <span class="compliance-label">Minimisation des données</span>
+            </div>
+            <div class="compliance-item warn">
+                <div class="compliance-dot"></div>
+                <span class="compliance-label">Chiffrement en transit</span>
+            </div>
+            <div class="compliance-item info">
+                <div class="compliance-dot"></div>
+                <span class="compliance-label">Politique évolutive</span>
+            </div>
+        </div>
+
+        <!-- 1. Responsable du traitement -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                </div>
+                <h2>1. Responsable du traitement</h2>
+            </div>
+            <p>Dans le cadre du projet <strong>Persona</strong> (projet étudiant Epitech), le responsable du traitement est l'équipe projet. En production, un responsable légal désigné devra être nommé conformément à l'article 13 du RGPD.</p>
+            <div class="callout info">
+                <div class="callout-icon">ℹ️</div>
+                <p><strong>Contexte :</strong> Persona est un projet pédagogique. Les principes RGPD sont appliqués dès la conception (<em>privacy by design</em>) pour anticiper un déploiement en Europe ou en dehors.</p>
+            </div>
+        </div>
+
+        <!-- 2. Données collectées -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                </div>
+                <h2>2. Données collectées</h2>
+            </div>
+            <p>Persona applique le principe de <strong>minimisation des données</strong> : seules les informations strictement nécessaires à la prestation sont collectées.</p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Donnée</th>
+                        <th>Finalité</th>
+                        <th>Base légale</th>
+                        <th>Durée de conservation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Adresse e-mail</td>
+                        <td>Envoi des newsletters</td>
+                        <td><span class="tag tag-green">Consentement</span></td>
+                        <td>Jusqu'au désabonnement + 30 j</td>
+                    </tr>
+                    <tr>
+                        <td>Nom d'utilisateur</td>
+                        <td>Authentification</td>
+                        <td><span class="tag tag-green">Contrat</span></td>
+                        <td>Durée du compte</td>
+                    </tr>
+                    <tr>
+                        <td>Mot de passe (hashé)</td>
+                        <td>Authentification sécurisée</td>
+                        <td><span class="tag tag-green">Contrat</span></td>
+                        <td>Durée du compte</td>
+                    </tr>
+                    <tr>
+                        <td>Centres d'intérêt</td>
+                        <td>Personnalisation du contenu</td>
+                        <td><span class="tag tag-green">Consentement</span></td>
+                        <td>Durée du compte</td>
+                    </tr>
+                    <tr>
+                        <td>Horaire préféré de réception</td>
+                        <td>Planification de l'envoi</td>
+                        <td><span class="tag tag-green">Consentement</span></td>
+                        <td>Durée du compte</td>
+                    </tr>
+                    <tr>
+                        <td>Préférences de format</td>
+                        <td>Personnalisation du rendu</td>
+                        <td><span class="tag tag-green">Consentement</span></td>
+                        <td>Durée du compte</td>
+                    </tr>
+                    <tr>
+                        <td>Historique de feedback</td>
+                        <td>Amélioration des futures newsletters</td>
+                        <td><span class="tag tag-accent">Intérêt légitime</span></td>
+                        <td>12 mois glissants</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout warn">
+                <div class="callout-icon">⚠️</div>
+                <p><strong>Aucune donnée sensible</strong> (art. 9 RGPD) n'est collectée : ni origine ethnique, ni données de santé, ni opinions politiques ou religieuses.</p>
+            </div>
+        </div>
+
+        <!-- 3. Authentification et sécurité -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                <h2>3. Authentification et sécurité</h2>
+            </div>
+            <p>Persona implémente un système d'authentification intégré directement dans le workflow N8N pour protéger les données des utilisateurs et prévenir tout accès non autorisé.</p>
+            <ul>
+                <li>Les mots de passe sont <strong>hashés</strong> avant stockage — ils ne sont jamais conservés en clair.</li>
+                <li>Chaque session est isolée par un <strong>identifiant de session unique</strong> généré côté client.</li>
+                <li>Les données de configuration d'un utilisateur sont <strong>inaccessibles</strong> aux autres utilisateurs.</li>
+                <li>Les <strong>privilèges administrateurs</strong> sont séparés des comptes standards et nécessitent une authentification distincte.</li>
+                <li>Le workflow rejette les tentatives d'accès non authentifiées avant tout traitement des données.</li>
+            </ul>
+            <div class="callout ok">
+                <div class="callout-icon">🔒</div>
+                <p><strong>Privacy by design :</strong> la sécurité est construite dans l'architecture du workflow, pas ajoutée après coup. Toute future fonctionnalité devra s'intégrer dans ce modèle d'authentification.</p>
+            </div>
+        </div>
+
+        <!-- 4. Sources d'information -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                </div>
+                <h2>4. Sources d'actualité utilisées</h2>
+            </div>
+            <p>Persona agrège des contenus depuis plusieurs sources externes. Ces sources sont interrogées via leurs APIs publiques ou flux RSS — Persona <strong>ne stocke pas les articles</strong>, uniquement les liens et résumés générés.</p>
+            <ul>
+                <li>Flux RSS de sources d'information publiques</li>
+                <li>APIs d'actualité (ex : NewsAPI, GNews, The Guardian API…)</li>
+                <li>Les résumés sont générés par IA à la volée et ne constituent pas une reproduction intégrale des articles</li>
+            </ul>
+        </div>
+
+        <!-- 5. Droits des utilisateurs -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h2>5. Vos droits (RGPD)</h2>
+            </div>
+            <p>Conformément au Règlement Général sur la Protection des Données (UE 2016/679), vous disposez des droits suivants :</p>
+
+            <div class="rights-grid">
+                <div class="right-card">
+                    <strong>Droit d'accès</strong>
+                    <p>Demandez la liste complète des données que nous détenons sur vous.</p>
+                </div>
+                <div class="right-card">
+                    <strong>Droit de rectification</strong>
+                    <p>Corrigez vos données directement via le chatbot à tout moment.</p>
+                </div>
+                <div class="right-card">
+                    <strong>Droit à l'effacement</strong>
+                    <p>Supprimez votre compte et toutes vos données en le demandant au chatbot.</p>
+                </div>
+                <div class="right-card">
+                    <strong>Droit à la portabilité</strong>
+                    <p>Exportez vos préférences et votre historique dans un format lisible.</p>
+                </div>
+                <div class="right-card">
+                    <strong>Droit d'opposition</strong>
+                    <p>Opposez-vous à certains traitements, notamment à des fins publicitaires.</p>
+                </div>
+                <div class="right-card">
+                    <strong>Droit au retrait</strong>
+                    <p>Retirez votre consentement à tout moment sans justification.</p>
+                </div>
+            </div>
+
+            <div class="callout ok">
+                <div class="callout-icon">✅</div>
+                <p><strong>Désabonnement simplifié :</strong> chaque newsletter envoyée contient un lien de désabonnement en un clic. Vous pouvez aussi le demander directement dans le chatbot. La suppression de vos données est effective sous <strong>30 jours</strong>.</p>
+            </div>
+        </div>
+
+        <!-- 6. Partage des données -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+                </div>
+                <h2>6. Partage et transfert des données</h2>
+            </div>
+            <p>Persona <strong>ne vend pas</strong> vos données personnelles à des tiers. Les seuls destinataires possibles sont :</p>
+            <ul>
+                <li><strong>Fournisseur de service e-mail</strong> (ex : SMTP, SendGrid) pour l'acheminement des newsletters — soumis à des clauses contractuelles de confidentialité.</li>
+                <li><strong>Modèle d'IA</strong> utilisé pour la génération des résumés — les requêtes ne contiennent que vos sujets d'intérêt, jamais votre e-mail ou vos identifiants.</li>
+                <li><strong>N8N</strong> (auto-hébergé) — les données restent sur votre infrastructure locale.</li>
+            </ul>
+            <div class="callout warn">
+                <div class="callout-icon">⚠️</div>
+                <p>Si Persona est déployé sur un serveur cloud hors UE (ex : serveur US), un mécanisme de <strong>transfert encadré</strong> (clauses contractuelles types, SCCs) doit être mis en place conformément au chapitre V du RGPD.</p>
+            </div>
+        </div>
+
+        <!-- 7. Cookies -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+                </div>
+                <h2>7. Cookies et stockage local</h2>
+            </div>
+            <p>L'interface web de Persona utilise un <strong>identifiant de session temporaire</strong> stocké en mémoire (non persistent) pour maintenir la continuité de la conversation avec le chatbot. Aucun cookie de traçage ou analytique tiers n'est utilisé.</p>
+            <ul>
+                <li><code style="font-size:12px;color:var(--accent);background:var(--accent-dim);padding:1px 6px;border-radius:4px;">sessionId</code> — généré aléatoirement à chaque chargement de page, non persisté entre sessions.</li>
+                <li>Aucun cookie publicitaire, aucun pixel de suivi.</li>
+            </ul>
+        </div>
+
+        <!-- 8. Contact -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <h2>8. Nous contacter</h2>
+            </div>
+            <p>Pour exercer vos droits ou pour toute question relative à la protection de vos données :</p>
+            <div class="contact-block">
+                <p>
+                    <strong>Via le chatbot Persona</strong>
+                    Envoyez le message "Supprimer mon compte" ou "Exporter mes données" directement dans l'interface.
+                </p>
+                <a href="index.html" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    Ouvrir le chatbot
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2025 Persona — Projet Epitech &nbsp;·&nbsp; <a href="index.html">Retour au chatbot</a> &nbsp;·&nbsp; <span style="color:var(--accent)">RGPD v0.1</span></p>
+    </footer>
+
+</body>
+</html>
