@@ -86,11 +86,15 @@
             letter-spacing: .4px;
         }
 
-        .footer {
-            margin: 0 auto;
-            font-size: 14px;
-            color: var(--accent);
-            letter-spacing: .4px;
+        .nav-brand {
+            font-size: 15px;
+            font-weight: 700;
+            margin: 20px auto;
+            font-style: normal;
+            background: var(--accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* ── Chat area ─────────────────────────────────────── */
@@ -364,6 +368,9 @@
                 </svg>
             </button>
         </div>
+        <a href="privacy.html" class="nav-brand">
+            Politique de confidentialité
+        </a>
     </div>
 
     <script>
@@ -500,9 +507,6 @@
             }
         })();
     </script>
-
-    <a href="privacy.html" class="footer" >Politique de confidentialité</a>
-
 </body>
 
 </html>
